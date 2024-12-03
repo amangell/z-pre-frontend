@@ -19,7 +19,7 @@ function HomePage() {
 
     return (
         <div className="homepage-container">
-            <h1 className="homepage-header">Welcome to Our App</h1>
+            <h1 className="homepage-header">Inventory Management App</h1>
             <div className="button-container">
                 <button className="homepage-button" onClick={handleSignIn}>
                     Sign In
