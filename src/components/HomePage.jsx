@@ -6,8 +6,7 @@ function HomePage() {
     const navigate = useNavigate();
 
     const handleSignIn = () => {
-        console.log('Redirect to Sign In page');
-        // Add navigation logic here
+        navigate('/signin');
     };
 
     const handleCreateAccount = () => {
@@ -17,7 +16,6 @@ function HomePage() {
     const handleContinueAsVisitor = () => {
         navigate('/visitor');
     };
-    
 
     return (
         <div className="homepage-container">
@@ -38,4 +36,5 @@ function HomePage() {
 }
 
 export default HomePage;
+
 
