@@ -15,9 +15,9 @@ function HomePage() {
     };
 
     const handleContinueAsVisitor = () => {
-        console.log('Continue as a visitor');
-        // Add navigation logic here
+        navigate('/visitor');
     };
+    
 
     return (
         <div className="homepage-container">
