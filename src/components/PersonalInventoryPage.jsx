@@ -32,25 +32,41 @@ function PersonalInventoryPage() {
             <button className="back-button" onClick={handleReturn}>
                 Return to Home
             </button>
-            <div className="items-list">
-                {items.length > 0 ? (
-                    items.map((item) => (
-                        <div key={item.id} className="item-card">
-                            <h3 className="item-title">{item.ItemName}</h3>
-                            <p>
-                                <strong>Quantity:</strong> {item.Quantity}
-                            </p>
-                            <p className="item-description">
-                                <strong>Description:</strong> {item.Description}
-                            </p>
-                        </div>
-                    ))
-                ) : (
-                    <p>No items found for this user.</p>
-                )}
+            <div className="items-wrapper">
+                <div className="items-header-container">
+                    <h2 className="items-header">Your Items</h2>
+                    <button 
+                        className="add-item-button" 
+                        onClick={() => navigate('/create-item', { state: { userId: user.Id } })}
+                    >
+                        Add New Item
+                    </button>
+                </div>
+                <div className="items-list">
+                    {items.length > 0 ? (
+                        items.map((item) => (
+                            <div key={item.id} className="item-card">
+                                <h3 className="item-title">{item.ItemName}</h3>
+                                <p>
+                                    <strong>Quantity:</strong> {item.Quantity}
+                                </p>
+                                <p className="item-description">
+                                    <strong>Description:</strong>{' '}
+                                    {item.Description.length > 100
+                                        ? `${item.Description.slice(0, 100)}...`
+                                        : item.Description}
+                                </p>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No items found for this user.</p>
+                    )}
+                </div>
             </div>
         </div>
     );
+    
 }
 
 export default PersonalInventoryPage;
+

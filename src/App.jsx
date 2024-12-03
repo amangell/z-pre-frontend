@@ -5,6 +5,7 @@ import ItemDetails from './components/ItemDetails';
 import SignInPage from './components/SignInPage';
 import PersonalInventoryPage from './components/PersonalInventoryPage';
 import CreateAccount from './components/CreateAccount';
+import CreateItemForm from './components/CreateItemForm';
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/signin" element={<SignInPage />} />
                 <Route path="/personal/:id" element={<PersonalInventoryPage />} />
                 <Route path="/create-account" element={<CreateAccount />} />
+                <Route path="/create-item" element={<CreateItemForm />} />
             </Routes>
         </Router>
     );

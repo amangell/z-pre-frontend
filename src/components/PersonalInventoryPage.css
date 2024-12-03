@@ -54,3 +54,31 @@ h1 {
     font-size: 0.95rem;
     margin-top: 10px;
 }
+
+.items-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.items-header {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.add-item-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-item-button:hover {
+    background-color: #0056b3;
+}
