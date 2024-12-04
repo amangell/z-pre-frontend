@@ -1,26 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './PersonalInventoryPage.css';
 
 function PersonalInventoryPage() {
     const [items, setItems] = useState([]);
-    const location = useLocation();
+    const [user, setUser] = useState(null);
     const navigate = useNavigate();
-    const { user } = location.state;
+    const { id } = useParams();
 
     useEffect(() => {
-        const fetchUserItems = async () => {
+        const fetchUserData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/users/${user.Id}/items`);
-                const data = await response.json();
-                setItems(data);
+                const userResponse = await fetch(`http://localhost:5000/users/${id}`);
+                const userData = await userResponse.json();
+                setUser(userData);
+                
+                const itemsResponse = await fetch(`http://localhost:5000/users/${id}/items`);
+                const itemsData = await itemsResponse.json();
+                setItems(itemsData);
             } catch (err) {
-                console.error('Error fetching user items:', err);
+                console.error('Error fetching user data:', err);
             }
         };
 
-        fetchUserItems();
-    }, [user.Id]);
+        if (id) {
+            fetchUserData();
+        }
+    }, [id]);
 
     const handleReturn = () => {
         navigate('/');
@@ -28,7 +34,11 @@ function PersonalInventoryPage() {
 
     return (
         <div className="inventory-container">
-            <h1>Hello {user.FirstName}!</h1>
+            {user ? (
+                <h1>Hello {user.FirstName}!</h1>
+            ) : (
+                <h1>Loading...</h1>
+            )}
             <button className="back-button" onClick={handleReturn}>
                 Return to Home
             </button>
@@ -37,7 +47,7 @@ function PersonalInventoryPage() {
                     <h2 className="items-header">Your Items</h2>
                     <button 
                         className="add-item-button" 
-                        onClick={() => navigate('/create-item', { state: { userId: user.Id } })}
+                        onClick={() => navigate(`/create-item`, { state: { userId: id } })}
                     >
                         Add New Item
                     </button>
@@ -65,8 +75,11 @@ function PersonalInventoryPage() {
             </div>
         </div>
     );
-    
 }
 
 export default PersonalInventoryPage;
+
+
+
+
 

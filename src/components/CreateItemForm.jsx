@@ -24,12 +24,12 @@ function CreateItemForm() {
                     Quantity: quantity,
                 }),
             });
-            navigate(`/`);
-// Navigate back to home or inventory
+            navigate(`/personal/${userId}`);
         } catch (err) {
             console.error('Error creating item:', err);
         }
     };
+    
 
     return (
         <div className="create-item-container">
