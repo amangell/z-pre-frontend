@@ -34,9 +34,9 @@ function ItemDetails() {
 
     const handleBackClick = () => {
         if (location.state?.fromVisitor) {
-            navigate('/visitor'); // Back to VisitorPage
+            navigate('/visitor');
         } else {
-            navigate(`/personal/${id}`); // Back to PersonalInventoryPage
+            navigate(`/personal/${user.Id}`);
         }
     };
 
@@ -68,7 +68,7 @@ function ItemDetails() {
             await fetch(`http://localhost:5000/items/${id}`, {
                 method: 'DELETE',
             });
-            navigate(`/personal/${id}`);
+            navigate(`/personal/${user.id}`);
         } catch (err) {
             console.error('Error deleting item:', err);
         }

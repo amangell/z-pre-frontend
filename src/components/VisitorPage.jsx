@@ -23,14 +23,14 @@ function VisitorPage() {
     }, []);
 
     const handleItemClick = (itemId) => {
-        navigate(`/item/${itemId}`, { state: { fromVisitor: true } }); // Mark origin
+        navigate(`/item/${itemId}`, { state: { fromVisitor: true } });
     };
 
     const handleBackClick = () => {
         if (user) {
-            navigate(`/personal/${user.id}`); // If signed in
+            navigate(`/personal/${user.Id}`);
         } else {
-            navigate('/'); // If visitor
+            navigate('/');
         }
     };
 
@@ -52,6 +52,9 @@ function VisitorPage() {
                             <p>
                                 <strong>Managed By:</strong> {item.FirstName} {item.LastName}
                             </p>
+                            <p>
+                                <strong>Quantity:</strong> {item.Quantity}
+                            </p>
                             <p className="visitor-item-description">
                                 <strong>Description:</strong>{' '}
                                 {item.Description.length > 100
@@ -69,6 +72,9 @@ function VisitorPage() {
 }
 
 export default VisitorPage;
+
+
+
 
 
 
