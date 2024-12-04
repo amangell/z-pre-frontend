@@ -1,8 +1,8 @@
-# React + Vite
+Welcome to the front end for my Z-Prefix CRUD Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Before using, make sure you have all dependencies installed (npm, react, react-router-dom) and have verified that your API is up and running.
 
-Currently, two official plugins are available:
+You can launch the app with npm run dev
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Notes for using the app:
+1. You will only be able to update or delete items that belong to the signed in user.
