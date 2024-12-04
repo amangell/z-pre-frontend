@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../UserContext';
 import './CreateItemForm.css';
 
 function CreateItemForm() {
     const navigate = useNavigate();
-    const location = useLocation();
-    const { userId } = location.state;
+    const { user } = useUser();
 
     const [itemName, setItemName] = useState('');
     const [description, setDescription] = useState('');
@@ -13,23 +13,28 @@ function CreateItemForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!user) {
+            console.error('User is not logged in.');
+            return;
+        }
+
         try {
             await fetch('http://localhost:5000/items', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    UserId: userId,
+                    UserId: user.Id,
                     ItemName: itemName,
                     Description: description,
                     Quantity: quantity,
                 }),
             });
-            navigate(`/personal/${userId}`);
+            navigate(`/personal/${user.Id}`);
         } catch (err) {
             console.error('Error creating item:', err);
         }
     };
-    
 
     return (
         <div className="create-item-container">
@@ -69,4 +74,5 @@ function CreateItemForm() {
 }
 
 export default CreateItemForm;
+
 

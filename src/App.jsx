@@ -6,9 +6,11 @@ import SignInPage from './components/SignInPage';
 import PersonalInventoryPage from './components/PersonalInventoryPage';
 import CreateAccount from './components/CreateAccount';
 import CreateItemForm from './components/CreateItemForm';
+import { UserProvider } from './UserContext';
 
 function App() {
     return (
+        <UserProvider>
         <Router>
             <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -20,6 +22,7 @@ function App() {
                 <Route path="/create-item" element={<CreateItemForm />} />
             </Routes>
         </Router>
+        </UserProvider>
     );
 }
 

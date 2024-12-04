@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../UserContext';
 import './SignInPage.css';
 
 function SignInPage() {
@@ -7,6 +8,7 @@ function SignInPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const { login } = useUser();
 
     const handleSignIn = async (e) => {
         e.preventDefault();
@@ -21,7 +23,8 @@ function SignInPage() {
 
             if (response.ok) {
                 const user = await response.json();
-                navigate(`/personal/${user.Id}`, { state: { user } });
+                login(user);
+                navigate(`/personal/${user.Id}`);
             } else {
                 const errorMessage = await response.text();
                 setError(errorMessage);
@@ -59,3 +62,4 @@ function SignInPage() {
 }
 
 export default SignInPage;
+

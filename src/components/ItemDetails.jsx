@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useUser } from '../UserContext';
 import './ItemDetails.css';
 
 function ItemDetails() {
     const { id } = useParams();
+    const { user } = useUser();
     const [item, setItem] = useState(null);
     const [inventoryManager, setInventoryManager] = useState('');
     const navigate = useNavigate();
@@ -14,6 +16,7 @@ function ItemDetails() {
                 const response = await fetch(`http://localhost:5000/items/${id}`);
                 const itemData = await response.json();
                 setItem(itemData);
+
                 const userResponse = await fetch(`http://localhost:5000/users/${itemData.UserId}`);
                 const userData = await userResponse.json();
                 setInventoryManager(`${userData['FirstName']} ${userData['LastName']}`);
@@ -26,7 +29,11 @@ function ItemDetails() {
     }, [id]);
 
     const handleReturn = () => {
-        navigate('/visitor');
+        if (user) {
+            navigate(`/personal/${user.Id}`);
+        } else {
+            navigate('/visitor');
+        }
     };
 
     return (
@@ -55,3 +62,4 @@ function ItemDetails() {
 }
 
 export default ItemDetails;
+
