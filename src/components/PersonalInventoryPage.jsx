@@ -31,6 +31,10 @@ function PersonalInventoryPage() {
         navigate('/');
     };
 
+    const handleItemClick = (itemId) => {
+        navigate(`/item/${itemId}`);
+    };
+
     return (
         <div className="inventory-container">
             {user && (
@@ -52,7 +56,11 @@ function PersonalInventoryPage() {
                         <div className="items-list">
                             {items.length > 0 ? (
                                 items.map((item) => (
-                                    <div key={item.id} className="item-card">
+                                    <div
+                                        key={item.id}
+                                        className="item-card clickable"
+                                        onClick={() => handleItemClick(item.id)}
+                                    >
                                         <h3 className="item-title">{item.ItemName}</h3>
                                         <p>
                                             <strong>Quantity:</strong> {item.Quantity}
@@ -77,6 +85,7 @@ function PersonalInventoryPage() {
 }
 
 export default PersonalInventoryPage;
+
 
 
 
