@@ -46,12 +46,20 @@ function PersonalInventoryPage() {
                     <div className="items-wrapper">
                         <div className="items-header-container">
                             <h2 className="items-header">Your Items</h2>
-                            <button
-                                className="add-item-button"
-                                onClick={() => navigate('/create-item')}
-                            >
-                                Add New Item
-                            </button>
+                            <div className="button-group">
+                                <button
+                                    className="add-item-button"
+                                    onClick={() => navigate('/create-item')}
+                                >
+                                    Add New Item
+                                </button>
+                                <button
+                                    className="view-all-items-button"
+                                    onClick={() => navigate('/visitor')}
+                                >
+                                    View All Items
+                                </button>
+                            </div>
                         </div>
                         <div className="items-list">
                             {items.length > 0 ? (
@@ -85,6 +93,7 @@ function PersonalInventoryPage() {
 }
 
 export default PersonalInventoryPage;
+
 
 
 

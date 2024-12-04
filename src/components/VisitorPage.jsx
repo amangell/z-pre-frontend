@@ -1,76 +1,77 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../UserContext';
 import './VisitorPage.css';
 
 function VisitorPage() {
     const [items, setItems] = useState([]);
-    const [users, setUsers] = useState({});
+    const { user } = useUser();
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchAllItems = async () => {
             try {
-                const itemResponse = await fetch('http://localhost:5000/items');
-                const itemData = await itemResponse.json();
-                setItems(itemData);
-                const userResponse = await fetch('http://localhost:5000/users');
-                const userData = await userResponse.json();
-                const userMap = userData.reduce((map, user) => {
-                    map[user.Id] = `${user.FirstName} ${user.LastName}`;
-                    return map;
-                }, {});
-                setUsers(userMap);
-            } catch (error) {
-                console.error('Error fetching data:', error);
+                const response = await fetch('http://localhost:5000/items');
+                const data = await response.json();
+                setItems(data);
+            } catch (err) {
+                console.error('Error fetching items:', err);
             }
         };
 
-        fetchData();
+        fetchAllItems();
     }, []);
 
-    const handleItemClick = (id) => {
-        navigate(`/item/${id}`);
+    const handleItemClick = (itemId) => {
+        navigate(`/item/${itemId}`, { state: { fromVisitor: true } }); // Mark origin
     };
 
-    const handleReturn = () => {
-        navigate('/');
+    const handleBackClick = () => {
+        if (user) {
+            navigate(`/personal/${user.id}`); // If signed in
+        } else {
+            navigate('/'); // If visitor
+        }
     };
 
     return (
         <div className="visitor-container">
-            <h1 className="visitor-header">Available Items</h1>
-            <button className="back-button" onClick={handleReturn}>
-                Return to Home
+            <button className="visitor-back-button" onClick={handleBackClick}>
+                Back
             </button>
-            <div className="items-list">
-                {items.map((item) => (
-                    <div
-                        key={item.id}
-                        className="item-card"
-                        onClick={() => handleItemClick(item.id)}
-                    >
-                        <h3 className="item-title">{item['ItemName']}</h3>
-                        <p>
-                            <strong>Inventory Manager:</strong>{' '}
-                            {users[item.UserId] || 'Loading...'}
-                        </p>
-                        <p>
-                            <strong>Quantity:</strong> {item.Quantity}
-                        </p>
-                        <p className="item-description">
-                            <strong>Description:</strong>{' '}
-                            {item.Description.length > 100
-                                ? `${item.Description.slice(0, 100)}...`
-                                : item.Description}
-                        </p>
-                    </div>
-                ))}
+            <h1>All Available Items</h1>
+            <div className="visitor-items-list">
+                {items.length > 0 ? (
+                    items.map((item) => (
+                        <div
+                            key={item.id}
+                            className="visitor-item-card clickable"
+                            onClick={() => handleItemClick(item.id)}
+                        >
+                            <h3 className="visitor-item-title">{item.ItemName}</h3>
+                            <p>
+                                <strong>Managed By:</strong> {item.FirstName} {item.LastName}
+                            </p>
+                            <p className="visitor-item-description">
+                                <strong>Description:</strong>{' '}
+                                {item.Description.length > 100
+                                    ? `${item.Description.slice(0, 100)}...`
+                                    : item.Description}
+                            </p>
+                        </div>
+                    ))
+                ) : (
+                    <p>No items found.</p>
+                )}
             </div>
         </div>
     );
 }
 
 export default VisitorPage;
+
+
+
 
 
 
