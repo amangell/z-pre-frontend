@@ -20,7 +20,6 @@ function SignInPage() {
                 },
                 body: JSON.stringify({ username, password }),
             });
-
             if (response.ok) {
                 const user = await response.json();
                 login(user);
@@ -32,6 +31,11 @@ function SignInPage() {
         } catch (err) {
             setError('Error signing in. Please try again.');
         }
+    };
+
+    
+    const handleGoHome = () => {
+        navigate('/');
     };
 
     return (
@@ -57,9 +61,11 @@ function SignInPage() {
                 <button type="submit">Sign In</button>
             </form>
             {error && <p className="error-message">{error}</p>}
+            <button className="home-button" onClick={handleGoHome}>Back to Home</button>
         </div>
     );
 }
 
 export default SignInPage;
+
 

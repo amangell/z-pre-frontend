@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 h1 {
@@ -28,7 +28,7 @@ input {
     border-radius: 5px;
 }
 
-button {
+button[type="submit"] {
     background-color: #28a745;
     color: white;
     border: none;
@@ -39,7 +39,22 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.home-button {
+    background-color: #28a745;
+    color: white;
+    margin-top: 15px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.home-button:hover {
     background-color: #218838;
 }
 
@@ -47,3 +62,4 @@ button:hover {
     color: red;
     margin-top: 10px;
 }
+

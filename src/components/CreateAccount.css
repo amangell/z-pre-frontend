@@ -28,6 +28,11 @@
     background-color: #28a745;
     color: white;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-account-form button:hover {
+    background-color: #218838;
 }
 
 .success-message {
