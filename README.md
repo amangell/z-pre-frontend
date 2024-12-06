@@ -4,5 +4,4 @@ Before using, make sure you have all dependencies installed (npm, react, react-r
 
 You can launch the app with npm run dev
 
-Notes for using the app:
-1. You will only be able to update or delete items that belong to the signed in user.
+Please note you will only be able to update or delete items that belong to the signed in user.
